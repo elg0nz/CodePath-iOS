@@ -14,10 +14,17 @@ class ViewController: UIViewController {
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var tipControl: UISegmentedControl!
     @IBOutlet weak var tipPercentageLabel: UITextField!
+    var defaultPercentage = 0.18
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let defaults = UserDefaults.standard
+        let storedValue = defaults.double(forKey: "DEFAULT_TIP")
+        if (storedValue != 0.0 ) {
+            let displayValue = String(format: "%.0f", storedValue * 100) + "%"
+            tipControl.setTitle(displayValue, forSegmentAt: 0)
+            self.defaultPercentage = storedValue
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,7 +40,7 @@ class ViewController: UIViewController {
             return (Double(tipPercentageLabel.text!) ?? 0.00 ) / 100.00
         }
 
-        let tipPercentages = [0.18, 0.2, 0.25]
+        let tipPercentages = [defaultPercentage, 0.2, 0.25]
         return Double(tipPercentages[tipControl.selectedSegmentIndex])
     }
 
