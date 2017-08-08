@@ -20,9 +20,8 @@ The following **required** functionality is complete:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/eporbR3.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-[Tippster Gifv](http://i.imgur.com/eporbR3.gifv)
+![Tippster](http://i.imgur.com/eporbR3.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -41,7 +40,7 @@ IBOutlets and IBAction like their names hint at, are mappings from the Interface
 They are implemented by adding an annotation to the XML created by
 Interface Builder to indicate what View Controller with interact with.
 
-Question 2: "Swift uses [Automatic Reference Counting](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-ID49) (ARC), which is not a garbage collector, to manage memory. Can you explain how you can get a strong reference cycle for closures? (There's a section explaining this concept in the link, how would you summarize as simply as possible?)"
+**Question 2**: "Swift uses [Automatic Reference Counting](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-ID49) (ARC), which is not a garbage collector, to manage memory. Can you explain how you can get a strong reference cycle for closures? (There's a section explaining this concept in the link, how would you summarize as simply as possible?)"
 
 **Answer:**
 Closures and classes are reference types. This means that when you
