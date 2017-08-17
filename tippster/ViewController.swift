@@ -8,6 +8,9 @@
 
 import UIKit
 
+let CURRENT_BILL = "CURRENT_BILL"
+let TEN_MINUTES_IN_SECONDS = 600.0
+
 class ViewController: UIViewController {
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
@@ -15,15 +18,31 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipControl: UISegmentedControl!
     @IBOutlet weak var tipPercentageLabel: UITextField!
     var defaultPercentage = 0.18
+    let defaults = UserDefaults.standard
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let defaults = UserDefaults.standard
         let storedValue = defaults.double(forKey: "DEFAULT_TIP")
         if (storedValue != 0.0 ) {
             let displayValue = String(format: "%.0f", storedValue * 100) + "%"
             tipControl.setTitle(displayValue, forSegmentAt: 0)
             self.defaultPercentage = storedValue
+        }
+
+        let billDict = defaults.dictionary(forKey: CURRENT_BILL)
+        if ((billDict) != nil) {
+            let updatedAt = billDict?["updated_at"] as! NSDate
+            let billValue = billDict?["value"] as! Double
+
+            let useStoredBill =
+                billValue != 0.0 &&
+                updatedAt.timeIntervalSinceNow < TEN_MINUTES_IN_SECONDS
+
+            if (useStoredBill) {
+                billField.text = String(billValue)
+            } else {
+                defaults.removeObject(forKey: CURRENT_BILL)
+            }
         }
     }
 
@@ -51,7 +70,10 @@ class ViewController: UIViewController {
             tipPercentageLabel.isEnabled = false
         }
 
-        let bill = Double(billField.text!) ?? 0
+        let bill = Double(billField.text!) ?? 0.0
+        let billDict = ["value": bill, "updated_at": NSDate()] as [String : Any]
+        defaults.set(billDict, forKey: CURRENT_BILL)
+
         let tip = bill * self.tipPercentage()
         let total = bill + tip
         tipLabel.text = String(format: "$%.2f", tip)
