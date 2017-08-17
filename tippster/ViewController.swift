@@ -34,12 +34,14 @@ class ViewController: UIViewController {
             let updatedAt = billDict?["updated_at"] as! NSDate
             let billValue = billDict?["value"] as! Double
 
-            let useStoredBill =
+            let useStoredBill = (
                 billValue != 0.0 &&
                 updatedAt.timeIntervalSinceNow < TEN_MINUTES_IN_SECONDS
+            )
 
             if (useStoredBill) {
                 billField.text = String(billValue)
+                updateLabels(bill: billValue)
             } else {
                 defaults.removeObject(forKey: CURRENT_BILL)
             }
@@ -63,6 +65,17 @@ class ViewController: UIViewController {
         return Double(tipPercentages[tipControl.selectedSegmentIndex])
     }
 
+    func updateLabels(bill: Double) {
+        let tip = bill * self.tipPercentage()
+        let total = bill + tip
+
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+
+        tipLabel.text = formatter.string(from: NSNumber(value: tip))
+        totalLabel.text = formatter.string(from: NSNumber(value: total))
+    }
+
     @IBAction func calculateTip(_ sender: Any) {
         if (tipControl.selectedSegmentIndex == 3) {
             tipPercentageLabel.isEnabled = true
@@ -73,15 +86,6 @@ class ViewController: UIViewController {
         let bill = Double(billField.text!) ?? 0.0
         let billDict = ["value": bill, "updated_at": NSDate()] as [String : Any]
         defaults.set(billDict, forKey: CURRENT_BILL)
-
-        let tip = bill * self.tipPercentage()
-        let total = bill + tip
-
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-
-        tipLabel.text = formatter.string(from: NSNumber(value: tip))
-        totalLabel.text = formatter.string(from: NSNumber(value: total))
-
+        updateLabels(bill: bill)
     }
 }
