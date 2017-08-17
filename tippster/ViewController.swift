@@ -76,7 +76,12 @@ class ViewController: UIViewController {
 
         let tip = bill * self.tipPercentage()
         let total = bill + tip
-        tipLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
+
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+
+        tipLabel.text = formatter.string(from: NSNumber(value: tip))
+        totalLabel.text = formatter.string(from: NSNumber(value: total))
+
     }
 }
