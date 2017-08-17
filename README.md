@@ -13,13 +13,17 @@ The following **required** functionality is complete:
 * [x] User can enter a bill amount, choose a tip percentage, and see the tip and total values.
 * [x] Settings page to change the default tip percentage.
 
+The following **optional** features are implemented:
+* [x] UI animations
+* [x] Remembering the bill amount across app restarts (if <10mins)
+* [x] Using locale-specific currency and currency thousands separators.
+
 ## The following **additional** features are implemented:
 - [x] Letting the user set custom tips on the main screen
 
-## Video Walkthrough 
+## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
-
 
 ![Tippster](http://i.imgur.com/eporbR3.gif)
 
