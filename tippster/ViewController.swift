@@ -22,6 +22,7 @@ class ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        runAnimation()
         let storedValue = defaults.double(forKey: "DEFAULT_TIP")
         if (storedValue != 0.0 ) {
             let displayValue = String(format: "%.0f", storedValue * 100) + "%"
@@ -46,6 +47,17 @@ class ViewController: UIViewController {
                 defaults.removeObject(forKey: CURRENT_BILL)
             }
         }
+    }
+
+    func runAnimation() {
+        self.tipLabel.alpha = 0
+        self.totalLabel.alpha = 0
+        self.tipControl.alpha = 0
+        UIView.animate(withDuration: 0.6, animations: {
+            self.tipLabel.alpha = 1
+            self.totalLabel.alpha = 1
+            self.tipControl.alpha = 1
+        })
     }
 
     override func didReceiveMemoryWarning() {
