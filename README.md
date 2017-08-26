@@ -38,11 +38,14 @@ As part of your pre-work submission, please reflect on the app and answer the fo
 **Answer:**
 iOS development is fun! Being able to run code on your smartphone makes the app feel more relatable than on desktop or Web.
 
-IBOutlets and IBAction like their names hint at, are mappings from the Interface Builder
-(the story board editor) into our view controllers.
+IBOutlets and IBAction are mechanisms to link the variables from our view
+controllers into the storyboard. They can be weak or strong references
+which means the instance that is referenced won't be deallocated until
+the reference is gone.
 
-They are implemented by adding an annotation to the XML created by
-Interface Builder to indicate what View Controller with interact with.
+They are implemented by adding to the ViewController Connections a
+series of outlet nodes that contain the link between a property and it's
+destination.
 
 **Question 2**: "Swift uses [Automatic Reference Counting](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-ID49) (ARC), which is not a garbage collector, to manage memory. Can you explain how you can get a strong reference cycle for closures? (There's a section explaining this concept in the link, how would you summarize as simply as possible?)"
 
